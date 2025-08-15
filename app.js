@@ -23,6 +23,7 @@ if(process.env.NODE_ENV === "development"){
 }
 
 // ENDPOINT ROUTING BY MOUNTING e.g Mounting the router
+app.use("/api/v1/users", userRouter);
 
 
 module.exports = app;
