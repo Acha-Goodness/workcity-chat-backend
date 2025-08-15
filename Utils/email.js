@@ -9,7 +9,7 @@ module.exports = class Email{
         this.firstName = user.name.split(" ")[0];
         this.lastName = user.name.split(" ")[1];
         this.OTPToken = otpToken;
-        this.from = `Vcheyeu Salon and Spa <${process.env.EMAIL_USERNAME}>`
+        this.from = `Work City Chat <${process.env.EMAIL_USERNAME}>`
     }
 
     newTransport(){
