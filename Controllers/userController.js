@@ -50,4 +50,10 @@ exports.userSignUp = catchAsync( async (req, res, next) => {
             message: err.message
         });
     }
-})
+});
+
+exports.userVerifyOTP = verifyOTP(User);
+
+exports.userLogin = login(User);
+
+exports.userLogout = logOut();

@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
+const userRouter = require("./Routes/userRoutes");
 
 const app = express();
 app.use(express.json());
@@ -20,10 +21,9 @@ app.use(cookieParser());
 if(process.env.NODE_ENV === "development"){
     app.use(morgan("dev"))
     console.log("My application is currently on", process.env.NODE_ENV)
-}
+};
 
 // ENDPOINT ROUTING BY MOUNTING e.g Mounting the router
 app.use("/api/v1/users", userRouter);
-
 
 module.exports = app;
