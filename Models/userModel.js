@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
             message: "password are not the same!"
         }
     },
+    profile: {
+        type: String,
+        default: ""
+    },
     active:{
         type: Boolean,
         default: false,

@@ -42,3 +42,23 @@ exports.logOut = () => catchAsync( async ( req, res, next ) => {
         message : "Logged out successfully!"
     })
 });
+
+exports.updateProfile = Model => catchAsync( async (req, res, next) => {
+    try{
+        const { profilePic } = req.body;
+        const userId = req.user._id;
+
+        if(!profilePic) return next(new AppError("Profile pic is required"), 400, res);
+        const uploadResponse = await cloudinary.uploader.upload(profilePic);
+        const updatedUser = await Model.findByIdAndUpdate(userId, {profilePic:uploadResponse.secure_url}, {new:true});
+
+        res.status(200).json({
+            success: true,
+            data: updatedUser,
+            message:"User profile updated successfully",
+        })
+    }catch(err){
+        console.log("err");
+        return next(new AppError("Internal server error", 500, res))
+    }
+})
