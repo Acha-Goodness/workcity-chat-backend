@@ -62,3 +62,31 @@ exports.updateProfile = Model => catchAsync( async (req, res, next) => {
         return next(new AppError("Internal server error", 500, res))
     }
 })
+
+exports.protect = Model => catchAsync( async (req, res, next) => {
+    // GETTING TOKEN AND CHECK IF IT IS PRESENT
+    let token;
+    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
+        token = req.headers.authorization.split(" ")[1];
+    }
+    
+    if(!token) return next(new AppError("You are not logged in! Please log in to get access", 401));
+
+    // TOKEN VERIFICATION
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    // CHECK IF USER STILL EXISTS
+    const currentDoc = await Model.findById(decoded.id);
+    if(!currentDoc){
+        return next(new AppError("The user belonging to this token does no longer exist", 401))
+    }
+
+    // CHECK IF USER CHANGED PASSWORD AFTER THE TOKEN WAS ISSUED
+    if(currentDoc.changedPasswordAfter(decoded.iat)){
+        return next(new AppError("User recently changed password! Please log in again.", 401))
+    }
+
+    // GRANT ACCESS TO PROTECTED ROUTE
+    req.user = currentDoc;
+    next();
+});
