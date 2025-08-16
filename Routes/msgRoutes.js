@@ -1,8 +1,7 @@
 
 const express = require("express");
 const { userProtector } = require("../Controllers/userController");
-const { getUsersForSidebar } = require("../Controllers/messageController");
-
+const { getUsersForSidebar, getMessages } = require("../Controllers/messageController");
 
 const router = express.Router();
 
