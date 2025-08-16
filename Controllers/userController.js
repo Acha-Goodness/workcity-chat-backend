@@ -61,4 +61,6 @@ exports.userLogout = logOut();
 
 exports.userUpdateProfile = updateProfile(User);
 
+exports.userCheckAuth = authMiddleware();
+
 exports.userProtector = protect(User);

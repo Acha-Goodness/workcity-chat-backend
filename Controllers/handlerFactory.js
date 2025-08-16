@@ -63,6 +63,29 @@ exports.updateProfile = Model => catchAsync( async (req, res, next) => {
     }
 })
 
+// AUTH MIDDLEWARE (checks if user/admin is still login)
+exports.authMiddleware = () =>  catchAsync( async ( req, res, next ) => {
+
+    const JWTToken = req.cookies.jwt;
+
+    if(!JWTToken) return next(new AppError("Unauthorised user!", 401, res));
+
+    try{
+        const decodedJWTToken = jwt.verify(JWTToken, process.env.JWT_SECRET);
+
+        const user = decodedJWTToken;
+
+        res.status(200).json({
+            status: "success",
+            message: "Authenticated user!",
+            user: user
+        })
+    }catch (err){
+        console.error("JWT Verification Error:", err.message);
+        return next(new AppError("Unauthorised user!", 401, res));
+    }
+});
+
 exports.protect = Model => catchAsync( async (req, res, next) => {
     // GETTING TOKEN AND CHECK IF IT IS PRESENT
     let token;
