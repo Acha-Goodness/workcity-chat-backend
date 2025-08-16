@@ -41,3 +41,35 @@ exports.getMessages = catchAsync (async (res, req, next ) => {
     }
 })
 
+exports.sendMessage = catchAsync( async (res, req, next) => {
+    try{
+        const { text, image } = req.body;
+        const { id: receiverId } = req.params;
+        const senderId = req.user._id;
+
+        let imageUrl;
+        if(image){
+            const uploadResponse = await cloudinary.uploader.upload(image);
+            imageUrl = uploadResponse.secure_url;
+        }
+
+        const newMessage = new Message({
+            senderId,
+            receiverId,
+            text,
+            image: imageUrl
+        })
+
+        await newMessage.save();
+        // todo: realtime functinality goes here => socket.io 
+
+        res.status(201).json({
+            success: true,
+            data: newMessage
+        })
+    }catch(err){
+        console.log(err.message);
+        return next(new AppError("Internal server error", 500, res))
+    }
+})
+
