@@ -3,7 +3,7 @@ const AppError = require("../Utils/appFeatures");
 const { createOTP } = require("../Utils/appFeatures");
 const catchAsync = require("../Utils/catchAsync");
 const Email = require("../Utils/email");
-const { verifyOTP, login, logOut, updateProfile, protect, authMiddleware } = require("./handlerFactory");
+const { verifyOTP, login, logOut, updateProfile, protect, authMiddleware, forgotPassword, resetPassword } = require("./handlerFactory");
 
 
 exports.userSignUp = catchAsync( async (req, res, next) => {
@@ -58,6 +58,10 @@ exports.userVerifyOTP = verifyOTP(User);
 exports.userLogin = login(User);
 
 exports.userLogout = logOut();
+
+exports.userForgetPassword = forgotPassword(User);
+
+exports.userResetPassword = resetPassword(User);
 
 exports.userUpdateProfile = updateProfile(User);
 

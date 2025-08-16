@@ -1,11 +1,11 @@
 const User = require("../Models/userModel");
-// const Message = require("../Models/msgModel");
-const catchAsync = require("../Utils/catchAsync");
-const AppError = require("../Utils/appFeatures");
-const cloudinary = require("../Helpers/cloudinary");
 const Message = require("../Models/msgModel");
+const catchAsync = require("../Utils/catchAsync");
+const cloudinary = require("../Helpers/cloudinary");
+const AppError = require("../Utils/appError");
 
-exports.getUsersForSidebar = catchAsync ( async (res, req, next) => {
+
+exports.getUsersForSidebar = catchAsync ( async (req, res, next) => {
     try{
         const loggedInUserId = req.user._id;
         const filteredUsers = await User.find({ _id: { $ne: loggedInUserId }}).select("-password");
@@ -16,11 +16,11 @@ exports.getUsersForSidebar = catchAsync ( async (res, req, next) => {
         })
     }catch(err){
         console.error(err.message);
-        return next (new AppError("Internal Server Error", 500, res))
+        return next(new AppError("Internal Server Error", 500, res))
     }
 })
 
-exports.getMessages = catchAsync (async (res, req, next ) => {
+exports.getMessages = catchAsync (async (req, res, next ) => {
     try{
         const { id:userToChatId } = req.params
         const myId = req.user._id;
@@ -43,7 +43,7 @@ exports.getMessages = catchAsync (async (res, req, next ) => {
     }
 })
 
-exports.sendMessage = catchAsync( async (res, req, next) => {
+exports.sendMessage = catchAsync( async (req, res, next) => {
     try{
         const { text, image } = req.body;
         const { id: receiverId } = req.params;
