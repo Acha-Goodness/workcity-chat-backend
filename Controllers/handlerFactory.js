@@ -1,9 +1,9 @@
 const catchAsync = require("../Utils/catchAsync");
 const crypto = require("crypto");
 const AppError = require("../Utils/appError");
-const { sendJWTToken, correctPassword, createOTP } = require("../Utils/appFeatures");
-const Email = require("../Utils/email");
+const { sendJWTToken, correctPassword } = require("../Utils/appFeatures");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../Helpers/cloudinary");
 
 exports.verifyOTP = Model => catchAsync( async (req, res, next) => {
     

@@ -3,6 +3,7 @@ const AppError = require("../Utils/appFeatures");
 const { createOTP } = require("../Utils/appFeatures");
 const catchAsync = require("../Utils/catchAsync");
 const Email = require("../Utils/email");
+const { verifyOTP, login, logOut, updateProfile, protect } = require("./handlerFactory");
 
 
 exports.userSignUp = catchAsync( async (req, res, next) => {
@@ -57,5 +58,7 @@ exports.userVerifyOTP = verifyOTP(User);
 exports.userLogin = login(User);
 
 exports.userLogout = logOut();
+
+exports.userUpdateProfile = updateProfile(User);
 
 exports.userProtector = protect(User);

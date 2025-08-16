@@ -1,7 +1,9 @@
 const User = require("../Models/userModel");
-const Message = require("../Models/msgModel");
+// const Message = require("../Models/msgModel");
 const catchAsync = require("../Utils/catchAsync");
 const AppError = require("../Utils/appFeatures");
+const cloudinary = require("../Helpers/cloudinary");
+const Message = require("../Models/msgModel");
 
 exports.getUsersForSidebar = catchAsync ( async (res, req, next) => {
     try{
@@ -23,7 +25,7 @@ exports.getMessages = catchAsync (async (res, req, next ) => {
         const { id:userToChatId } = req.params
         const myId = req.user._id;
 
-        const messages = await Message.find({
+        const messages = await Message.find({ 
             $or:[
                 {senderId:myId, receiverId: userToChatId},
                 {senderId:userToChatId, receiverId:myId}

@@ -1,5 +1,4 @@
 const cloudinary = require("cloudinary").v2;
-const multer = require("multer");
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -8,16 +7,4 @@ cloudinary.config({
     secure: true
 });
 
-const storage = new multer.memoryStorage();
-
-const imageUploadUtill = async (File) => {
-    const result = await cloudinary.uploader.upload(File, {
-        resource_type : "auto"
-    })
-
-    return result;
-}
-
-const upload = multer({storage})
-
-module.exports = {upload, imageUploadUtill};
+module.exports =  cloudinary;
