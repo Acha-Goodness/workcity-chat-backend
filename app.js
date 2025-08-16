@@ -26,6 +26,6 @@ if(process.env.NODE_ENV === "development"){
 
 // ENDPOINT ROUTING BY MOUNTING e.g Mounting the router
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/msg", )
+app.use("/api/v1/msg", msgRouter);
 
 module.exports = app;

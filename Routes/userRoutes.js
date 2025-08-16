@@ -1,5 +1,6 @@
 const express = require("express");
 const { userSignUp, userVerifyOTP, userLogin, userForgetPassword, userResetPassword, userLogout, userCheckAuth, userProtector } = require("../Controllers/userController");
+const { updateProfile } = require("../Controllers/handlerFactory");
 
 const router = express.Router();
 
