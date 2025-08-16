@@ -3,7 +3,7 @@ const AppError = require("../Utils/appFeatures");
 const { createOTP } = require("../Utils/appFeatures");
 const catchAsync = require("../Utils/catchAsync");
 const Email = require("../Utils/email");
-const { verifyOTP, login, logOut, updateProfile, protect } = require("./handlerFactory");
+const { verifyOTP, login, logOut, updateProfile, protect, authMiddleware } = require("./handlerFactory");
 
 
 exports.userSignUp = catchAsync( async (req, res, next) => {
