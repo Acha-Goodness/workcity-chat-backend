@@ -57,3 +57,5 @@ exports.userVerifyOTP = verifyOTP(User);
 exports.userLogin = login(User);
 
 exports.userLogout = logOut();
+
+exports.userProtector = protect(User);
