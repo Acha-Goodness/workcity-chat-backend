@@ -4,8 +4,8 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const userRouter = require("./Routes/userRoutes");
 const msgRouter = require("./Routes/msgRoutes");
+const { app } = require("./Lib/socket");
 
-const app = express();
 app.use(express.json());
 
 // IMPLEMENT CORS
