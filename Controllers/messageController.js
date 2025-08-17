@@ -3,6 +3,7 @@ const Message = require("../Models/msgModel");
 const catchAsync = require("../Utils/catchAsync");
 const cloudinary = require("../Helpers/cloudinary");
 const AppError = require("../Utils/appError");
+const { getReceiverSocketId } = require("../Lib/socket");
 
 
 exports.getUsersForSidebar = catchAsync ( async (req, res, next) => {
@@ -63,7 +64,11 @@ exports.sendMessage = catchAsync( async (req, res, next) => {
         })
 
         await newMessage.save();
-        // todo: realtime functinality goes here => socket.io 
+
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
         res.status(201).json({
             success: true,
