@@ -4,7 +4,6 @@
   "description": "Work city realtime chat",
   "main": "app.js",
   "type": "commonjs",
-
   "scripts": {
     "dev": "nodemon server.js",
     "prod": "NODE_ENV=production nodemon server.js",
