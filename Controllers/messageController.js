@@ -3,7 +3,7 @@ const Message = require("../Models/msgModel");
 const catchAsync = require("../Utils/catchAsync");
 const cloudinary = require("../Helpers/cloudinary");
 const AppError = require("../Utils/appError");
-const { getReceiverSocketId } = require("../Lib/socket");
+const { getReceiverSocketId, io } = require("../Lib/socket");
 
 
 exports.getUsersForSidebar = catchAsync ( async (req, res, next) => {
