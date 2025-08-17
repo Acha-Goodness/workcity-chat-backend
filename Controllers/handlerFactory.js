@@ -38,7 +38,6 @@ exports.login = Model => catchAsync( async (req, res, next) => {
 });
 
 exports.logOut = () => catchAsync( async ( req, res, next ) => {
-    console.log(res)
     res.clearCookie("jwt").json({
         status: "success",
         message : "Logged out successfully!"
