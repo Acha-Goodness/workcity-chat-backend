@@ -10,4 +10,3 @@ router.get("/:id", userProtector, getMessages);
 router.post("/send/:id", userProtector, sendMessage);
 
 module.exports = router;
-sendMessage
